@@ -1,55 +1,162 @@
-<h1>🔧 Estandarización de código para el proyecto</h1>
-Con el objetivo de mantener un código limpio, organizado y fácil de mantener, todos los desarrolladores deberán seguir las siguientes convenciones durante el desarrollo del proyecto.
+# Blog de Aprendizaje
 
-<h2>📌 Variables</h2>
+Este repositorio contiene el proyecto completo de un **blog de aprendizaje**, dividido en dos carpetas principales:
 
-Las variables deben estar nombradas en inglés.</br>
-Se debe utilizar la notación camelCase.</br>
-Ejemplos: userName, productId.</br>
+- **backend**: API RESTful con Node.js, Express y MongoDB
+- **frontend**: SPA en React y Vite para consumir la API
 
-<h2>📁 Módulos / Archivos</h2>
+---
 
-Los nombres de los archivos y módulos también deben estar en inglés.</br>
-Usar camelCase, comenzando con minúscula.</br>
-Ejemplos: productRegister, userRegister.</br>
-Utilizar nombres en singular, no en plural.</br>
-✅ productForm</br>
-❌ productsForm</br>
+## 📦 Tecnologías
 
-<h2>❗Mensajes de error</h2>
+- **Backend**:
+  - Node.js
+  - Express
+  - MongoDB + Mongoose
+  - argon2 (hash de contraseñas)
+  - jsonwebtoken (JWT)
+  - express-validator
+  - multer
+  - dotenv
+  - Helmet, CORS, Morgan, express-rate-limit
+  - swagger-jsdoc & swagger-ui-express
 
-Todos los mensajes de error deben estar escritos en inglés.</br>
-Deben ser claros, precisos y orientados al usuario o al desarrollador, según corresponda.</br>
-Ejemplos:</br>
-"Invalid email address."</br>
-"Product not found."</br>
+- **Frontend**:
+  - React (v18+)
+  - Vite
+  - React Router
+  - Axios
+  - react-hot-toast
+  - Bootstrap 5 (o Tailwind)
+  - PropTypes
 
-<h2>💬 Commits</h2>
+---
 
-Todos los mensajes de commit deben iniciar con un prefijo que indique el tipo de cambio. A continuación, se listan:</br>
-Prefijo | Descripción</br>
-feat: | Agregar o eliminar una nueva característica</br>
-add: | Añadir archivos nuevos al proyecto</br>
-build: | Cambios relacionados con la estructura del proyecto</br>
-docs: | Cambios en la documentación</br>
-fix: | Corrección de errores o bugs</br>
-refactor: | Cambios internos que no afectan la funcionalidad</br>
-style: | Cambios en estilos (CSS, clases, etc.)</br>
-chore: | Cambios en dependencias o tareas menores</br>
+## 🔧 Requisitos previos
 
-Ejemplos:</br>
-add: Se creó el módulo register de productos</br>
-fix: Se arregló el método register de productos</br>
+1. Node.js >= 14 y npm o yarn
+2. MongoDB (local o en la nube)
+3. Git
 
-<h2>🌿 Ramas</h2>
+---
 
-Las ramas se crearán por funcionalidad o ticket.</br>
-Cada funcionalidad debe tener su propia rama, en la que se realizarán los commits correspondientes.</br>
-Los nombres de la rama seran en base al número de ticket en este caso los que estan asignados en Jira.</br>
-![image](https://github.com/user-attachments/assets/00047ea6-8613-426f-aed2-c3c814e5e383)</br>
-El número del ticket en jira es el LGDA-8 este será el número de ticket que le deberan poner a la rama</br>
-❗Ejemplo del nombre de rama por si no quedo claro:
+## 🚀 Instalación y puesta en marcha
 
-Número de ticket LGDA-8 entonces el nombre quedaría así:</br>
+```bash
+# Clonar el repositorio
+git clone https://github.com/tu_usuario/blog-de-aprendizaje.git
+cd blog-de-aprendizaje
 
-LDGA-8 así quedaría el nombre de la rama.</br>
+# Configurar variables de entorno (backend/.env)
+# MONGO_URI, JWT_SECRET, PORT=3001
+
+# Iniciar backend
+git checkout main
+cd backend
+npm install
+npm run dev
+
+# Iniciar frontend
+git checkout main
+cd frontend
+npm install
+npm run dev
+```
+
+- El **backend** corre en `http://localhost:3001/blog/v1`
+- El **frontend** en `http://localhost:3000`
+
+---
+
+## 🗂 Estructura del proyecto
+
+```
+blog-de-aprendizaje/
+├─ backend/
+│  ├─ src/
+│  │  ├─ auth/           # register, login
+│  │  ├─ post/           # modelos, controladores y rutas de posts
+│  │  ├─ comment/        # modelos, controladores y rutas de comentarios
+│  │  ├─ middlewares/    # validaciones, JWT, manejo de archivos
+│  │  ├─ helpers/        # validadores de BD, generadores de JWT
+│  │  └─ swagger.js      # configuración de Swagger
+│  ├─ .env
+│  ├─ package.json
+│  └─ server.js
+│
+├─ frontend/
+│  ├─ public/
+│  │  └─ index.html
+│  ├─ src/
+│  │  ├─ assets/         # imágenes, logos
+│  │  ├─ components/     # UI y componentes de página
+│  │  ├─ shared/         # hooks, servicios, validadores
+│  │  ├─ App.jsx
+│  │  └─ main.jsx
+│  ├─ package.json
+│  └─ vite.config.js
+└─ README.md
+```
+
+---
+
+## 🔗 Endpoints principales (backend)
+
+### Auth
+
+| Método | Ruta                 | Descripción                |
+| ------ | -------------------- | -------------------------- |
+| POST   | `/auth/register`     | Crear cuenta de usuario    |
+| POST   | `/auth/login`        | Iniciar sesión (JWT)       |
+
+### Posts
+
+| Método | Ruta               | Descripción                                |
+| ------ | ------------------ | ------------------------------------------ |
+| GET    | `/posts`           | Listar todas las publicaciones             |
+| GET    | `/posts/:id`       | Obtener detalle de una publicación         |
+| POST   | `/posts`           | Crear nueva publicación                    |
+| PUT    | `/posts/:id`       | Actualizar publicación                     |
+| DELETE | `/posts/:id`       | Eliminar publicación                       |
+
+### Comments
+
+| Método | Ruta                                     | Descripción                       |
+| ------ | ---------------------------------------- | --------------------------------- |
+| GET    | `/posts/:postId/comments`                | Listar comentarios de un post     |
+| POST   | `/posts/:postId/comments`                | Crear comentario en un post       |
+| DELETE | `/comments/:id`                          | Eliminar comentario               |
+
+---
+
+## 🌐 Rutas (frontend)
+
+- `/` — Lista de publicaciones
+- `/posts/:id` — Detalle de post y comentarios
+- `/posts/new` — Formulario para crear un post
+- `/posts/edit/:id` — Formulario para editar un post
+
+---
+
+## 📚 Documentación de la API
+
+Accede a Swagger UI una vez el servidor esté corriendo en:
+
+```
+http://localhost:3001/api-docs
+```
+
+---
+
+## 🤝 Contribuir
+
+1. Fork del repositorio
+2. Crear rama `feature/mi-mejora`
+3. Commit y push
+4. Pull request
+
+---
+
+## 📄 Licencia
+
+MIT
