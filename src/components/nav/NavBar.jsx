@@ -7,7 +7,7 @@ export const Navbar = () => {
       <div className="container-fluid">
         <Link className="navbar-brand d-flex align-items-center" to="/">
           <img
-            src="/assets/logo.png"
+            src="../src/assets/logo.png"
             alt="Logo"
             width="40"
             height="40"
@@ -30,11 +30,6 @@ export const Navbar = () => {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto align-items-center">
-            <li className="nav-item">
-              <NavLink to="/" className="nav-link" activeclassname="active-link">
-                Publicaciones
-              </NavLink>
-            </li>
             <li className="nav-item">
               <NavLink to="/posts/new" className="nav-link" activeclassname="active-link">
                 Crear Publicación

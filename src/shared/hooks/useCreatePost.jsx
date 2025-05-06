@@ -17,7 +17,7 @@ export const useCreatePost = () => {
         return;
       }
       toast.success("Publicación creada");
-      navigate("/posts");
+      navigate("/");
     } catch (err) {
       toast.error("Error inesperado: " + err.message);
     } finally {
