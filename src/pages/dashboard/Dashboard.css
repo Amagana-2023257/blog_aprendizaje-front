@@ -1,0 +1,78 @@
+/* Dashboard.css */
+
+/* Paleta: blanco, negro, rojo */
+:root {
+    --color-bg-light: #ffffff;
+    --color-bg-dark: #343a40;
+    --color-text-dark: #212529;
+    --color-accent: #dc3545; /* rojo bootstrap */
+  }
+  
+  /* Wrapper principal */
+  .dashboard-wrapper {
+    min-height: 100vh;
+    background: var(--color-bg-light);
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    min-height: 100vh;
+  }
+  .sidebar .nav-link {
+    border-radius: 0.25rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .sidebar .nav-link:hover,
+  .sidebar .active-link {
+    background: var(--color-accent);
+    color: var(--color-bg-light) !important;
+  }
+  
+  /* Navbar overrides */
+  .navbar {
+    height: 60px;
+  }
+  .navbar .navbar-brand span {
+    color: var(--color-text-dark);
+  }
+  .navbar .btn-outline-danger {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .navbar .btn-outline-danger:hover {
+    background: var(--color-accent);
+    color: var(--color-bg-light);
+  }
+  
+  /* Content */
+  .content-container {
+    background: var(--color-bg-light);
+    color: var(--color-text-dark);
+  }
+  
+  /* Responsivo: ocultar sidebar en < md */
+  @media (max-width: 767.98px) {
+    .sidebar {
+      display: none;
+    }
+  }
+  
+
+  /* Agrega al final de src/pages/dashboard/Dashboard.css */
+
+/* Enlace deshabilitado: borroso y semitransparente */
+.disabled-link {
+    filter: blur(1px);
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none; /* evita clics */
+    transition: filter 0.2s, opacity 0.2s;
+  }
+  
+  .disabled-link:hover {
+    /* Mantiene el estado borroso, pero muestra tooltip */
+    filter: blur(1px);
+    opacity: 0.5;
+  }
+  
