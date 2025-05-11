@@ -1,5 +1,9 @@
+// src/components/dashboard/Content.jsx
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Routes, Route } from 'react-router-dom';
+
+import { Sidebar } from '../nav/Sidebar';
 import { PostList } from '../Posts/PostList';
 import { PostDetail } from '../Posts/PostDetail';
 import { NewPostForm } from '../Posts/NewPostForm';
@@ -7,13 +11,26 @@ import { EditPostForm } from '../Posts/EditPostForm';
 import { CommentList } from '../Comments/CommentList';
 import { NewCommentForm } from '../Comments/NewCommentForm';
 
-export const Content = () => (
+export const Content = ({ courseFilter, onSelectCourse }) => (
   <main className="content-container flex-grow-1 p-4">
     <Routes>
-      {/* Lista de publicaciones (público) */}
-      <Route path="" element={<PostList />} />
+      {/* Ruta principal: lista + sidebar */}
+      <Route
+        path=""
+        element={
+          <div className="d-flex">
+            <Sidebar
+              selectedCourse={courseFilter}
+              onSelectCourse={onSelectCourse}
+            />
+            <div className="flex-grow-1 p-4">
+              <PostList courseFilter={courseFilter} />
+            </div>
+          </div>
+        }
+      />
 
-      {/* Detalle de publicación y comentarios */}
+      {/* Resto de rutas: sin sidebar */}
       <Route
         path="posts/:id"
         element={
@@ -24,14 +41,8 @@ export const Content = () => (
           </>
         }
       />
-
-      {/* Nuevo post */}
       <Route path="posts/new" element={<NewPostForm />} />
-
-      {/* Editar post */}
       <Route path="posts/edit/:id" element={<EditPostForm />} />
-
-      {/* Fallback 404 */}
       <Route
         path="*"
         element={
@@ -43,3 +54,8 @@ export const Content = () => (
     </Routes>
   </main>
 );
+
+Content.propTypes = {
+  courseFilter: PropTypes.string.isRequired,
+  onSelectCourse: PropTypes.func.isRequired,
+};

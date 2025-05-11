@@ -1,7 +1,6 @@
 // src/components/Comments/NewCommentForm.jsx
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Input } from '../UI/Input';
 import { useCreateComment } from '../../shared/hooks/useCreateComment';
 import toast from 'react-hot-toast';
 
@@ -10,7 +9,8 @@ export const NewCommentForm = ({ onAdded }) => {
   const { createComment, isLoading } = useCreateComment();
   const [form, setForm] = useState({ name: '', content: '' });
 
-  const handleChange = (val, field) => setForm(f => ({ ...f, [field]: val }));
+  const handleChange = (value, field) =>
+    setForm(prev => ({ ...prev, [field]: value }));
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -26,30 +26,66 @@ export const NewCommentForm = ({ onAdded }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-3">
-      <Input
-        field="name"
-        label="Tu nombre"
-        type="text"
-        value={form.name}
-        onChangeHandler={handleChange}
-        showErrorMessage={!form.name}
-        validationMessage="Requerido"
-        onBlurHandler={() => {}}
-      />
-      <Input
-        field="content"
-        label="Comentario"
-        textArea
-        value={form.content}
-        onChangeHandler={handleChange}
-        showErrorMessage={!form.content}
-        validationMessage="Requerido"
-        onBlurHandler={() => {}}
-      />
-      <button type="submit" className="btn btn-primary" disabled={isLoading}>
-        {isLoading ? 'Publicando...' : 'Publicar Comentario'}
-      </button>
-    </form>
+    <div className="container my-4" style={{ maxWidth: '600px' }}>
+      <div className="card shadow-sm">
+        <div className="card-body">
+          <h5 className="card-title mb-3">Añadir Comentario</h5>
+          <form onSubmit={handleSubmit}>
+            {/* Nombre */}
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">
+                Tu nombre
+              </label>
+              <input
+                id="name"
+                type="text"
+                className={`form-control ${!form.name ? 'is-invalid' : ''}`}
+                value={form.name}
+                onChange={e => handleChange(e.target.value, 'name')}
+              />
+              {!form.name && (
+                <div className="invalid-feedback">Este campo es requerido</div>
+              )}
+            </div>
+
+            {/* Contenido */}
+            <div className="mb-4">
+              <label htmlFor="content" className="form-label">
+                Comentario
+              </label>
+              <textarea
+                id="content"
+                rows="3"
+                className={`form-control ${!form.content ? 'is-invalid' : ''}`}
+                value={form.content}
+                onChange={e => handleChange(e.target.value, 'content')}
+              />
+              {!form.content && (
+                <div className="invalid-feedback">Este campo es requerido</div>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary w-100"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Publicando...
+                </>
+              ) : (
+                'Publicar Comentario'
+              )}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };

@@ -11,14 +11,36 @@ export const PostDetail = () => {
     fetchPost(id);
   }, [id]);
 
-  if (isLoading) return <p>Cargando...</p>;
-  if (!post) return <p>Publicación no encontrada.</p>;
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: '12rem' }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!post) {
+    return <p className="text-center text-muted">Publicación no encontrada.</p>;
+  }
 
   return (
-    <div>
-      <h2>{post.title}</h2>
-      <p><em>Curso: {post.course}</em></p>
-      <p>{post.description}</p>
+    <div className="container my-4" style={{ maxWidth: '600px' }}>
+      <div className="card shadow-sm">
+        {/* Header */}
+        <div className="card-header">
+          <h2 className="mb-0">{post.title}</h2>
+        </div>
+        {/* Body */}
+        <div className="card-body">
+          <p className="card-text">{post.description}</p>
+        </div>
+        {/* Footer */}
+        <div className="card-footer text-muted">
+          Curso: <em>{post.course}</em>
+        </div>
+      </div>
     </div>
   );
 };
